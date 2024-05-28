@@ -1,4 +1,4 @@
-package org.example;
+package principal;
 
 public class Clientes {
     private String nombreCompletoCliente = null;
