@@ -57,7 +57,7 @@ public class Clientes {
         this.tiempoPagado = tiempoPagado;
     }
 
-    public Boolean getActivo() {
+    public String getActivo() {
         return activo;
     }
 
