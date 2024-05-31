@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner leer = new Scanner(System.in);
-        Acciones acciones = new Acciones();
+        Operaciones operaciones = new Operaciones();
 
         int opcion = 0;
         do {
