@@ -51,7 +51,7 @@ public class Acciones {
             preparedStatement.setString(4, clientes.getFechaDeFinalizacion());
             preparedStatement.setString(5, clientes.getFormaDePago());
             preparedStatement.setString(6, clientes.getTiempoPagado());
-            preparedStatement.setString(7, clientes.getActivo());
+            preparedStatement.setBoolean(7, clientes.getActivo());
 
 
             int rowsAffected = preparedStatement.executeUpdate();
