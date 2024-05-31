@@ -1,6 +1,7 @@
 package principal;
 import javax.swing.*;
 import java.sql.*;
+import java.util.Random;
 import java.util.Scanner;
 import java.awt.Component;
 import java.io.PrintStream;
@@ -11,15 +12,12 @@ import javax.swing.JOptionPane;
 
 
 public class Acciones {
-    Scanner leer = new Scanner(System.in);
-    System.out.println("Escoge una opcion");
 
 
-        System.out.println("Insert departamento...OPCION 1");
-
+    private Random leer;
     int opcion = leer.nextInt();
 
-        if (opcion == 1){
+    if(opcion == 1) {
 
 
         try {
@@ -67,3 +65,4 @@ public class Acciones {
         }
     }
 }
+

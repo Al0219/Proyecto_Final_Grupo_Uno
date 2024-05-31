@@ -52,4 +52,31 @@ public class Operaciones {
 		}
 
 	}
+	public void buscarCliente(){
+		try {
+			Conexion conexion = new Conexion();
+			String sql = "SELECT * FROM clientes WHERE id_cliente = ?";
+			PreparedStatement pst = conexion.connection.prepareStatement(sql);
+
+			System.out.print("Escriba el ID del Cliente a buscar: ");
+			System.out.println(" ");
+			String DPI = entrada.nextLine();
+
+			pst.setString(1, DPI);
+
+			ResultSet rs = pst.executeQuery();
+
+			if(rs.next()){
+				System.out.println("|Nombre Completo: "+rs.getString("nombre_cliente")+" "+rs.getString("apellido_cliente")+"|");
+				System.out.println("|Número de DPI: " +rs.getString("numero_DPI")+"|");
+				System.out.println("|Fecha de nacimiento: " +rs.getString("fecha_nacimiento")+"|");
+			}else{
+				System.out.println("Cliente no se encuentra en la base de datos");
+			}
+			conexion.connection.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
