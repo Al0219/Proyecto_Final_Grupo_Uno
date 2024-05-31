@@ -24,7 +24,7 @@ public class Clientes {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getNombreCliente() {
+    public String getNombreCompletoCliente() {
         return nombreCliente;
     }
 
@@ -38,5 +38,55 @@ public class Clientes {
 
     public void setApellidoCliente(String apellidosCliente) {
         this.apellidoCliente = apellidosCliente;
+    }
+
+    public void setNombreCompletoCliente(String nombre) {
+    }
+
+    public void setFechaDePago(String fechaDePago) {
+    }
+
+    public void setFechaDeFinalizacion(String fechaDeFinalizacion) {
+    }
+
+    public void setFormaDePago(String formaDePago) {
+    }
+
+    public void setTiempoPagado(String tiempoPagado) {
+    }
+
+    public void setActivo(boolean activo) {
+    }
+
+
+    public String getFechaDePago() {
+        String FechaDePago = null;
+        return FechaDePago;
+    }
+
+    public String getFechaDeFinalizacion() {
+        String FechaDeFinalizacion = null;
+        return FechaDeFinalizacion;
+    }
+
+    public String getFormaDePago() {
+        String FormaDePago = null;
+        return FormaDePago;
+
+    }
+
+    public String getTiempoPagado() {
+        String TiempoPagado = null;
+        return TiempoPagado;
+    }
+
+    public boolean getActivo() {
+        boolean Activo = Boolean.parseBoolean(null);
+        return Activo;
+    }
+
+    public String getNombreCliente() {
+        String NombreCliente = null;
+        return NombreCliente;
     }
 }

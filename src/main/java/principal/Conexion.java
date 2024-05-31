@@ -1,4 +1,6 @@
 package principal;
+import com.mysql.jdbc.ConnectionImpl;
+
 import java.sql.*;
 public class Conexion {
     //public static String driver = "com.mysql.jdbc.Driver";
@@ -9,6 +11,7 @@ public class Conexion {
     public String username = "gimnasio";
     public String password ="equipoUno2024";
     public String url = "jdbc:mysql://"+hostname+":"+port+"/"+database;
+    public ConnectionImpl conex;
 
     Connection connection;
 

@@ -16,8 +16,7 @@ public class Acciones {
 
     private Random leer;
     int opcion = leer.nextInt();
-
-    if(opcion == 1) {
+if (opcion == 1) {
 
 
         try {
@@ -64,5 +63,6 @@ public class Acciones {
 
         }
     }
+
 }
 
