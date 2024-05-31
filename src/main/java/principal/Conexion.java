@@ -1,19 +1,26 @@
 package principal;
 import java.sql.*;
 public class Conexion {
-    Connection conex;
+    //public static String driver = "com.mysql.jdbc.Driver";
+    public String database = "gimnasio";
+    public String hostname = "mysql.webcindario.com";
+    //public String hostname = "localhost";
+    public String port ="3306";
+    public String username = "gimnasio";
+    public String password ="equipoUno2024";
+    public String url = "jdbc:mysql://"+hostname+":"+port+"/"+database;
+
+    Connection connection;
 
     public Conexion() throws SQLException{
         try {
-            conex = DriverManager.getConnection("jdbc:mysql://localhost/gimnasio", "root", "");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("Error al establecer la conexión: " + e.getMessage());
+            //Class.forName(driver);
+            connection =DriverManager.getConnection(url, username, password);
         }
-    }
-
-    public Connection getConex(){
-        return conex;
+        catch (SQLException e){
+            e.printStackTrace();
+            throw new SQLException("Error al establecer la conexion: " + e.getMessage());
+        }
     }
 
 }

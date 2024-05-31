@@ -1,21 +1,12 @@
 package principal;
 
+import java.util.Date;
+
 public class Clientes {
-    private String nombreCompletoCliente = null;
+    private String nombreCliente = null;
+    private String apellidoCliente = null;
     private String numeroDPI = null;
-    private String fechaDePago = null;
-    private String fechaDeFinalizacion = null;
-    private String formaDePago = null;
-    private String tiempoPagado = null;
-    private Boolean activo = false;
-
-    public String getNombreCompletoCliente() {
-        return nombreCompletoCliente;
-    }
-
-    public void setNombreCompletoCliente(String nombreCompletoCliente) {
-        this.nombreCompletoCliente = nombreCompletoCliente;
-    }
+    private Date fechaNacimiento = null;
 
     public String getNumeroDPI() {
         return numeroDPI;
@@ -25,43 +16,27 @@ public class Clientes {
         this.numeroDPI = numeroDPI;
     }
 
-    public String getFechaDePago() {
-        return fechaDePago;
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFechaDePago(String fechaDePago) {
-        this.fechaDePago = fechaDePago;
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getFechaDeFinalizacion() {
-        return fechaDeFinalizacion;
+    public String getNombreCliente() {
+        return nombreCliente;
     }
 
-    public void setFechaDeFinalizacion(String fechaDeFinalizacion) {
-        this.fechaDeFinalizacion = fechaDeFinalizacion;
+    public void setNombreCliente(String nombresCliente) {
+        this.nombreCliente = nombresCliente;
     }
 
-    public String getFormaDePago() {
-        return formaDePago;
+    public String getApellidoCliente() {
+        return apellidoCliente;
     }
 
-    public void setFormaDePago(String formaDePago) {
-        this.formaDePago = formaDePago;
-    }
-
-    public String getTiempoPagado() {
-        return tiempoPagado;
-    }
-
-    public void setTiempoPagado(String tiempoPagado) {
-        this.tiempoPagado = tiempoPagado;
-    }
-
-    public String getActivo() {
-        return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
+    public void setApellidoCliente(String apellidosCliente) {
+        this.apellidoCliente = apellidosCliente;
     }
 }
