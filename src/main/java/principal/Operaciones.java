@@ -173,5 +173,35 @@ public class Operaciones {
 		}
 	}
 
+	public void consultarPago(){
+		try {
+			Conexion conexion = new Conexion();
+			String sql = "SELECT * FROM pagos WHERE id_pago = ?";
+			PreparedStatement pst = conexion.connection.prepareStatement(sql);
+
+			System.out.print("Escriba el ID de Pago porfavor... ");
+			System.out.println(" ");
+			String idPago = entrada.nextLine();
+
+			pst.setString(1, idPago);
+
+			ResultSet rs = pst.executeQuery();
+
+			if(rs.next()){
+				System.out.println("|ID de Pago: " + rs.getString("id_pago"));
+				System.out.println("|Número de DPI: " +rs.getString("numero_DPI"));
+				System.out.println("|Fecha de pago: " +rs.getString("fecha_pago"));
+				System.out.println("|Fecha de finalización: " + rs.getString("fecha_finalizacion"));
+				System.out.println("|Forma de pago: " + rs.getString("forma_pago"));
+				System.out.println("|Tiempo pagado: " + rs.getString("tiempo_pagado"));
+			}else{
+				System.out.println("Ese pago no existe, no fue registrado o se ha eliminado");
+			}
+			conexion.connection.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
