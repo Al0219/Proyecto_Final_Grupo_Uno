@@ -126,5 +126,52 @@ public class Operaciones {
 		}
 	}
 
+	public void registrarPago(){
+		try {
+			Conexion conexion = new Conexion();
+			String sql = "INSERT INTO pagos(id_pago, numero_DPI, fecha_pago, fecha_finalizacion, forma_pago, tiempo_pagado) VALUES (?, ?, ?, ?, ?, ?)";
+			PreparedStatement pst = conexion.connection.prepareStatement(sql);
+
+			System.out.print("Escriba el número de DPI del cliente: ");
+			String DPI = entrada.nextLine(); pagos.setNumeroDPI(DPI);;
+
+			System.out.print("Escriba la fecha de pago, en formato YYYY/MM/DD: ");
+			String fechaPago = entrada.nextLine();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			java.util.Date fechaPag = sdf.parse(fechaPago); pagos.setFechaDePago(fechaPag);
+
+			System.out.print("Escriba la fecha en que finalizará el periodo, en formato YYYY/MM/DD: ");
+			String fechaFin = entrada.nextLine();
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
+			java.util.Date fechaFi = sdf2.parse(fechaFin); pagos.setFechaDeFinalizacion(fechaFi);
+
+			System.out.print("¿Cuál es la forma de pago: ");
+			String formaPago = entrada.nextLine(); pagos.setFormaDePago(formaPago);
+
+			System.out.print("Escriba el tiempo pagado en días, ej: 15 días. ");
+			String tiempoPagado = entrada.nextLine(); pagos.setTiempoPagado(tiempoPagado);
+
+			pst.setString(1, "0");
+			pst.setString(2, pagos.getNumeroDPI());
+			pst.setDate(3, new java.sql.Date(pagos.getFechaDePago().getTime()));
+			pst.setDate(4, new java.sql.Date(pagos.getFechaDeFinalizacion().getTime()));
+			pst.setString(5, pagos.getFormaDePago());
+			pst.setString(6, pagos.getTiempoPagado());
+
+
+			int rowsAffected = pst.executeUpdate();
+			if (rowsAffected == 1){
+				System.out.println("Se ha registrado el pago exitosamente:" );
+			}
+			else{
+				System.out.println("Algo no ha salido como esperabas... ");
+			}
+			conexion.connection.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 }
