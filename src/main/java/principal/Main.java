@@ -1,5 +1,4 @@
 package principal;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -19,7 +18,7 @@ public class Main {
             System.out.println("|Opción 4 - Eliminar un cliente                    |");
             System.out.println("|--------------------PAGOS-------------------------|");
             System.out.println("|Opcion 5 - Registrar un pago                      |");
-            System.out.println("|Opcion 6 - Consultar los pagos                    |");
+            System.out.println("|Opcion 6 - Consultar fecha de pago                |");
             System.out.println("|Opcion 7 - Eliminar un pago                       |");
             System.out.println("|------------------ENTRENADORES--------------------|");
             System.out.println("|Opción 8 - Agregar un entrenador                  |");

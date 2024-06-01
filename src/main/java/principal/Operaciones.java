@@ -27,7 +27,7 @@ public class Operaciones {
 			System.out.print("Escriba el numero de DPI del cliente: ");
 			String DPI = entrada.nextLine(); clientes.setNumeroDPI(DPI);
 
-			System.out.println("Escriba la fecha de nacimiento del cliente: formato: YYYY/MM/DD");
+			System.out.print("Escriba la fecha de nacimiento del cliente en formato YYYY/MM/DD: ");
 			String fechaNacimiento = entrada.nextLine();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 			java.util.Date fechaInicio = sdf.parse(fechaNacimiento); clientes.setFechaNacimiento(fechaInicio);
@@ -59,7 +59,7 @@ public class Operaciones {
 			Conexion conexion = new Conexion(); //inicializamos la conexión
 			String sql = "SELECT * FROM clientes WHERE numero_DPI = ?";
 			PreparedStatement pst = conexion.connection.prepareStatement(sql);
-
+			System.out.println(" ");
 			System.out.print("Escriba el número de DPI del cliente: ");
 			String DPI = entrada.nextLine();
 			System.out.println(" ");
@@ -85,9 +85,10 @@ public class Operaciones {
 	public void eliminarCliente(){
 		try {
 			Conexion conexion = new Conexion();
-			String sql = "DELETE FROM clientes WHERE id_cliente = ";
-			System.out.println("Ingrese el ID del cliente que va a mandar alv: ");
+			String sql = "DELETE FROM clientes WHERE numero_DPI = ";
+			System.out.print("Ingrese el DPI del cliente para eliminar: ");
 			String ID = entrada.nextLine();
+			System.out.println(" ");
 			PreparedStatement pst = conexion.connection.prepareStatement(sql+ID);
 			int rowsAffected = pst.executeUpdate();
 			if (rowsAffected == 1){
@@ -133,6 +134,7 @@ public class Operaciones {
 
 			int rowsAffected = pst.executeUpdate();
 			if (rowsAffected == 1){
+				System.out.println(" ");
 				System.out.println("El entrenador se ha unido al Gimnasio Siempre Fuerte " );
 			}else{
 				System.out.println("Algo no ha salido como esperabas... ");
@@ -163,7 +165,7 @@ public class Operaciones {
 			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
 			java.util.Date fechaFi = sdf2.parse(fechaFin); pagos.setFechaDeFinalizacion(fechaFi);
 
-			System.out.print("¿Cuál es la forma de pago: ");
+			System.out.print("Escriba forma de pago, tarjeta o efectivo: ");
 			String formaPago = entrada.nextLine(); pagos.setFormaDePago(formaPago);
 
 			System.out.print("Escriba el tiempo pagado en días, ej: 15 días. ");
@@ -179,6 +181,7 @@ public class Operaciones {
 
 			int rowsAffected = pst.executeUpdate();
 			if (rowsAffected == 1){
+				System.out.println(" ");
 				System.out.println("Se ha registrado el pago exitosamente:" );
 			}
 			else{
@@ -194,19 +197,18 @@ public class Operaciones {
 	public void consultarPago(){
 		try {
 			Conexion conexion = new Conexion();
-			String sql = "SELECT * FROM pagos WHERE id_pago = ?";
+			String sql = "SELECT * FROM pagos WHERE numero_DPI = ?";
 			PreparedStatement pst = conexion.connection.prepareStatement(sql);
 
-			System.out.print("Escriba el ID de Pago porfavor... ");
+			System.out.print("Escriba el número de DPI de la persona porfavor... ");
+			String DPI = entrada.nextLine();
 			System.out.println(" ");
-			String idPago = entrada.nextLine();
 
-			pst.setString(1, idPago);
+			pst.setString(1, DPI);
 
 			ResultSet rs = pst.executeQuery();
 
 			if(rs.next()){
-				System.out.println("|ID de Pago: " + rs.getString("id_pago"));
 				System.out.println("|Número de DPI: " +rs.getString("numero_DPI"));
 				System.out.println("|Fecha de pago: " +rs.getString("fecha_pago"));
 				System.out.println("|Fecha de finalización: " + rs.getString("fecha_finalizacion"));
@@ -221,27 +223,50 @@ public class Operaciones {
 			e.printStackTrace();
 		}
 	}
+	public void eliminarPago(){
+		try {
+			Conexion conexion = new Conexion();
+			String sql = "DELETE FROM pagos WHERE numero_DPI = ";
+			System.out.print("Ingrese el DPI: ");
+			String ID = entrada.nextLine();
+			System.out.println(" ");
+			PreparedStatement pst = conexion.connection.prepareStatement(sql+ID);
+			int rowsAffected = pst.executeUpdate();
+			if (rowsAffected == 1){
+				System.out.println("Eliminado exitosamente " );
+			}else{
+				System.out.println("Algo no ha salido como esperabas... ");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void actualizarCliente(){
 		try {
 			Conexion conexion = new Conexion();
-			String sql = "UPDATE clientes set nombre_cliente = ?, apellido_cliente = ? WHERE id_cliente = ";
-			System.out.println("Ingrese el ID del cliente que va a modificar");
-			String ID = entrada.nextLine();
-			PreparedStatement pst = conexion.connection.prepareStatement(sql+ID);
+			String sql = "UPDATE clientes set nombre_cliente = ?, apellido_cliente = ?, numero_DPI = ? WHERE numero_DPI = ";
+			System.out.println("Ingrese el numero de DPI del cliente que va a modificar");
+			String DPI = entrada.nextLine();
+			PreparedStatement pst = conexion.connection.prepareStatement(sql+DPI);
 
 			//esto puede cambiar según lo que deseemos, es decir, podemos elegir modificar más campos, u algunas cosas...
-			System.out.println("Ingrese el nuevo nombre: ");
+			System.out.print("Ingrese el nuevo nombre: ");
 			String nombre = entrada.nextLine(); clientes.setNombreCliente(nombre);
 
-			System.out.println("Ingrese el nuevo apellido: ");
+			System.out.print("Ingrese el nuevo apellido: ");
 			String apellido = entrada.nextLine(); clientes.setApellidoCliente(apellido);
+
+			System.out.print("Ingrese el nuevo numero de DPI: ");
+			String nuevoDPI = entrada.nextLine(); clientes.setNumeroDPI(nuevoDPI);
 
 			pst.setString(1, clientes.getNombreCliente());
 			pst.setString(2, clientes.getApellidoCliente());
+			pst.setString(3, clientes.getNumeroDPI());
 
 			int rowsAffected = pst.executeUpdate();
 			if (rowsAffected == 1){
+				System.out.println("");
 				System.out.println("Se ha hecho la modificación exitosamente " );
 			}else{
 				System.out.println("Algo no ha salido como esperabas... ");
@@ -255,14 +280,14 @@ public class Operaciones {
 	public void buscarEntrenador(){
 		try {
 			Conexion conexion = new Conexion();
-			String sql = "SELECT * FROM entrenadores WHERE id_entrenador = ?";
+			String sql = "SELECT * FROM entrenadores WHERE nombre_entrenador = ?";
 			PreparedStatement pst = conexion.connection.prepareStatement(sql);
 
-			System.out.print("Escriba el ID del entrenador a buscar: ");
+			System.out.print("Escriba el solo el primer nombre del entrenador a buscar: ");
+			String nombre = entrada.nextLine();
 			System.out.println(" ");
-			String ID = entrada.nextLine();
 
-			pst.setString(1, ID);
+			pst.setString(1, nombre);
 
 			ResultSet rs = pst.executeQuery();
 
@@ -283,12 +308,14 @@ public class Operaciones {
 	public void eliminarEntrenador(){
 		try {
 			Conexion conexion = new Conexion();
-			String sql = "DELETE FROM entrenadores WHERE id_entrenador = ";
-			System.out.println("Ingrese el ID del entrenador que va a mandar alv: ");
-			String ID = entrada.nextLine();
-			PreparedStatement pst = conexion.connection.prepareStatement(sql+ID);
+			String sql = "DELETE FROM entrenadores WHERE numero_telefono = ";
+			System.out.print("Ingrese el número de telefono del entrenador que va a eliminar: ");
+			String numTel = entrada.nextLine();
+			System.out.println(" ");
+			PreparedStatement pst = conexion.connection.prepareStatement(sql+numTel);
 			int rowsAffected = pst.executeUpdate();
 			if (rowsAffected == 1){
+				System.out.println(" ");
 				System.out.println("Entrenador eliminado correctamente " );
 			}else{
 				System.out.println("Algo no ha salido como esperabas... ");
