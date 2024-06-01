@@ -261,4 +261,22 @@ public class Operaciones {
 			e.printStackTrace();
 		}
 	}
+
+	public void eliminarEntrenador(){
+		try {
+			Conexion conexion = new Conexion();
+			String sql = "DELETE FROM entrenadores WHERE id_entrenador = ";
+			System.out.println("Ingrese el ID del entrenador que va a mandar alv: ");
+			String ID = entrada.nextLine();
+			PreparedStatement pst = conexion.connection.prepareStatement(sql+ID);
+			int rowsAffected = pst.executeUpdate();
+			if (rowsAffected == 1){
+				System.out.println("Entrenador eliminado correctamente " );
+			}else{
+				System.out.println("Algo no ha salido como esperabas... ");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
 }
