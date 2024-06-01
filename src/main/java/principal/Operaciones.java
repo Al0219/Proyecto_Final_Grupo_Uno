@@ -82,6 +82,24 @@ public class Operaciones {
 		}
 	}
 
+	public void eliminarCliente(){
+		try {
+			Conexion conexion = new Conexion();
+			String sql = "DELETE FROM clientes WHERE id_cliente = ";
+			System.out.println("Ingrese el ID del cliente que va a mandar alv: ");
+			String ID = entrada.nextLine();
+			PreparedStatement pst = conexion.connection.prepareStatement(sql+ID);
+			int rowsAffected = pst.executeUpdate();
+			if (rowsAffected == 1){
+				System.out.println("Eliminado exitosamente " );
+			}else{
+				System.out.println("Algo no ha salido como esperabas... ");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
 	public void agregarEntrenador(){
 		try {
 			Conexion conexion = new Conexion(); //inicializamos la conexión
