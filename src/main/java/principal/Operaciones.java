@@ -204,4 +204,33 @@ public class Operaciones {
 		}
 	}
 
+	public void actualizarCliente(){
+		try {
+			Conexion conexion = new Conexion();
+			String sql = "UPDATE clientes set nombre_cliente = ?, apellido_cliente = ? WHERE id_cliente = ";
+			System.out.println("Ingrese el ID del cliente que va a modificar");
+			String ID = entrada.nextLine();
+			PreparedStatement pst = conexion.connection.prepareStatement(sql+ID);
+
+			//esto puede cambiar según lo que deseemos, es decir, podemos elegir modificar más campos, u algunas cosas...
+			System.out.println("Ingrese el nuevo nombre: ");
+			String nombre = entrada.nextLine(); clientes.setNombreCliente(nombre);
+
+			System.out.println("Ingrese el nuevo apellido: ");
+			String apellido = entrada.nextLine(); clientes.setApellidoCliente(apellido);
+
+			pst.setString(1, clientes.getNombreCliente());
+			pst.setString(2, clientes.getApellidoCliente());
+
+			int rowsAffected = pst.executeUpdate();
+			if (rowsAffected == 1){
+				System.out.println("Se ha hecho la modificación exitosamente " );
+			}else{
+				System.out.println("Algo no ha salido como esperabas... ");
+			}
+			conexion.connection.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
 }
