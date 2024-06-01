@@ -1,9 +1,9 @@
 package principal;
-
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Scanner;
+
 public class Operaciones {
 
 	Scanner entrada = new Scanner(System.in); //instancia para escáner
@@ -52,8 +52,8 @@ public class Operaciones {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
+
 	public void buscarCliente(){
 		try {
 			Conexion conexion = new Conexion(); //inicializamos la conexión
@@ -82,6 +82,42 @@ public class Operaciones {
 		}
 	}
 
+	public void actualizarCliente(){
+		try {
+			Conexion conexion = new Conexion();
+			String sql = "UPDATE clientes set nombre_cliente = ?, apellido_cliente = ?, numero_DPI = ? WHERE numero_DPI = ";
+			System.out.print("Ingrese el numero de DPI del cliente que va a modificar: ");
+			String DPI = entrada.nextLine();
+			System.out.println(" ");
+			PreparedStatement pst = conexion.connection.prepareStatement(sql+DPI);
+
+			//esto puede cambiar según lo que deseemos, es decir, podemos elegir modificar más campos, u algunas cosas...
+			System.out.print("Ingrese el nuevo nombre: ");
+			String nombre = entrada.nextLine(); clientes.setNombreCliente(nombre);
+
+			System.out.print("Ingrese el nuevo apellido: ");
+			String apellido = entrada.nextLine(); clientes.setApellidoCliente(apellido);
+
+			System.out.print("Ingrese el nuevo numero de DPI: ");
+			String nuevoDPI = entrada.nextLine(); clientes.setNumeroDPI(nuevoDPI);
+
+			pst.setString(1, clientes.getNombreCliente());
+			pst.setString(2, clientes.getApellidoCliente());
+			pst.setString(3, clientes.getNumeroDPI());
+
+			int rowsAffected = pst.executeUpdate();
+			if (rowsAffected == 1){
+				System.out.println(" ");
+				System.out.println("Se ha hecho la modificación exitosamente " );
+			}else{
+				System.out.println("Algo no ha salido como esperabas... ");
+			}
+			conexion.connection.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
 	public void eliminarCliente(){
 		try {
 			Conexion conexion = new Conexion();
@@ -97,51 +133,6 @@ public class Operaciones {
 				System.out.println("Algo no ha salido como esperabas... ");
 			}
 		}catch (Exception e){
-			e.printStackTrace();
-		}
-	}
-
-	public void agregarEntrenador(){
-		try {
-			Conexion conexion = new Conexion(); //inicializamos la conexión
-
-			String sql = "INSERT INTO entrenadores(id_entrenador, nombre_entrenador, apellido_entrenador, numero_telefono, email, fecha_contratacion) VALUES (?, ?, ?, ?, ?, ?)";
-			PreparedStatement pst = conexion.connection.prepareStatement(sql);
-
-			System.out.print("Escriba el nombre del nuevo entrenador: ");
-			String nombre = entrada.nextLine(); entrenadores.setNombreEntrenador(nombre);
-
-			System.out.print("Escriba el apellido del nuevo entrenador: ");
-			String apellido = entrada.nextLine(); entrenadores.setApellidoEntrenador(apellido);
-
-			System.out.print("Escriba el numero de teléfono: ");
-			String numero = entrada.nextLine(); entrenadores.setNumeroEntrenador(numero);
-
-			System.out.print("Escriba el correo electrónico: ");
-			String email = entrada.nextLine();	entrenadores.setEmailEntrenador(email);
-
-			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
-			LocalDate fechaActual = LocalDate.now();
-			java.sql.Date sqlDate = java.sql.Date.valueOf(fechaActual);
-			entrenadores.setFechaContratacion(sqlDate);
-
-			pst.setString(1, "0");
-			pst.setString(2, entrenadores.getNombreEntrenador());
-			pst.setString(3, entrenadores.getApellidoEntrenador());
-			pst.setString(4, entrenadores.getNumeroEntrenador());
-			pst.setString(5, entrenadores.getEmailEntrenador());
-			pst.setDate(6, sqlDate);
-
-			int rowsAffected = pst.executeUpdate();
-			if (rowsAffected == 1){
-				System.out.println(" ");
-				System.out.println("El entrenador se ha unido al Gimnasio Siempre Fuerte " );
-			}else{
-				System.out.println("Algo no ha salido como esperabas... ");
-			}
-			conexion.connection.close();
-
-		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -223,6 +214,7 @@ public class Operaciones {
 			e.printStackTrace();
 		}
 	}
+
 	public void eliminarPago(){
 		try {
 			Conexion conexion = new Conexion();
@@ -242,37 +234,47 @@ public class Operaciones {
 		}
 	}
 
-	public void actualizarCliente(){
+	public void agregarEntrenador(){
 		try {
-			Conexion conexion = new Conexion();
-			String sql = "UPDATE clientes set nombre_cliente = ?, apellido_cliente = ?, numero_DPI = ? WHERE numero_DPI = ";
-			System.out.println("Ingrese el numero de DPI del cliente que va a modificar");
-			String DPI = entrada.nextLine();
-			PreparedStatement pst = conexion.connection.prepareStatement(sql+DPI);
+			Conexion conexion = new Conexion(); //inicializamos la conexión
 
-			//esto puede cambiar según lo que deseemos, es decir, podemos elegir modificar más campos, u algunas cosas...
-			System.out.print("Ingrese el nuevo nombre: ");
-			String nombre = entrada.nextLine(); clientes.setNombreCliente(nombre);
+			String sql = "INSERT INTO entrenadores(id_entrenador, nombre_entrenador, apellido_entrenador, numero_telefono, email, fecha_contratacion) VALUES (?, ?, ?, ?, ?, ?)";
+			PreparedStatement pst = conexion.connection.prepareStatement(sql);
 
-			System.out.print("Ingrese el nuevo apellido: ");
-			String apellido = entrada.nextLine(); clientes.setApellidoCliente(apellido);
+			System.out.print("Escriba el nombre del nuevo entrenador: ");
+			String nombre = entrada.nextLine(); entrenadores.setNombreEntrenador(nombre);
 
-			System.out.print("Ingrese el nuevo numero de DPI: ");
-			String nuevoDPI = entrada.nextLine(); clientes.setNumeroDPI(nuevoDPI);
+			System.out.print("Escriba el apellido del nuevo entrenador: ");
+			String apellido = entrada.nextLine(); entrenadores.setApellidoEntrenador(apellido);
 
-			pst.setString(1, clientes.getNombreCliente());
-			pst.setString(2, clientes.getApellidoCliente());
-			pst.setString(3, clientes.getNumeroDPI());
+			System.out.print("Escriba el numero de teléfono: ");
+			String numero = entrada.nextLine(); entrenadores.setNumeroEntrenador(numero);
+
+			System.out.print("Escriba el correo electrónico: ");
+			String email = entrada.nextLine();	entrenadores.setEmailEntrenador(email);
+
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
+			LocalDate fechaActual = LocalDate.now();
+			java.sql.Date sqlDate = java.sql.Date.valueOf(fechaActual);
+			entrenadores.setFechaContratacion(sqlDate);
+
+			pst.setString(1, "0");
+			pst.setString(2, entrenadores.getNombreEntrenador());
+			pst.setString(3, entrenadores.getApellidoEntrenador());
+			pst.setString(4, entrenadores.getNumeroEntrenador());
+			pst.setString(5, entrenadores.getEmailEntrenador());
+			pst.setDate(6, sqlDate);
 
 			int rowsAffected = pst.executeUpdate();
 			if (rowsAffected == 1){
-				System.out.println("");
-				System.out.println("Se ha hecho la modificación exitosamente " );
+				System.out.println(" ");
+				System.out.println("El entrenador se ha unido al Gimnasio Siempre Fuerte " );
 			}else{
 				System.out.println("Algo no ha salido como esperabas... ");
 			}
 			conexion.connection.close();
-		}catch (Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
