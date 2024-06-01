@@ -13,7 +13,7 @@ public class Operaciones {
 
 	public void registrarCliente(){
 		try {
-			Conexion conexion = new Conexion();
+			Conexion conexion = new Conexion(); //inicializamos la conexión
 
 			String sql = "INSERT INTO clientes(id_cliente, nombre_cliente, apellido_cliente, numero_DPI, fecha_nacimiento) VALUES (?, ?, ?, ?, ?)";
 			PreparedStatement pst = conexion.connection.prepareStatement(sql);
@@ -40,10 +40,12 @@ public class Operaciones {
 
 			int rowsAffected = pst.executeUpdate();
 			if (rowsAffected == 1){
+				System.out.println(" ");
 				System.out.println("Se ha registrado el cliente: " + clientes.getNombreCliente() + " " + clientes.getApellidoCliente());
+				System.out.println(" ");
 			}
 			else{
-				System.out.println("Algo no ha ido como esperabas...");
+				System.out.println("Algo no ha ido como esperabas... ");
 			}
 			conexion.connection.close();
 
@@ -54,13 +56,13 @@ public class Operaciones {
 	}
 	public void buscarCliente(){
 		try {
-			Conexion conexion = new Conexion();
-			String sql = "SELECT * FROM clientes WHERE id_cliente = ?";
+			Conexion conexion = new Conexion(); //inicializamos la conexión
+			String sql = "SELECT * FROM clientes WHERE numero_DPI = ?";
 			PreparedStatement pst = conexion.connection.prepareStatement(sql);
 
-			System.out.print("Escriba el ID del Cliente a buscar: ");
-			System.out.println(" ");
+			System.out.print("Escriba el número de DPI del cliente: ");
 			String DPI = entrada.nextLine();
+			System.out.println(" ");
 
 			pst.setString(1, DPI);
 
@@ -82,7 +84,7 @@ public class Operaciones {
 
 	public void agregarEntrenador(){
 		try {
-			Conexion conexion = new Conexion();
+			Conexion conexion = new Conexion(); //inicializamos la conexión
 
 			String sql = "INSERT INTO entrenadores(id_entrenador, nombre_entrenador, apellido_entrenador, numero_telefono, email, fecha_contratacion) VALUES (?, ?, ?, ?, ?, ?)";
 			PreparedStatement pst = conexion.connection.prepareStatement(sql);
@@ -96,7 +98,7 @@ public class Operaciones {
 			System.out.print("Escriba el numero de teléfono: ");
 			String numero = entrada.nextLine(); entrenadores.setNumeroEntrenador(numero);
 
-			System.out.println("Escriba el correo electrónico: ");
+			System.out.print("Escriba el correo electrónico: ");
 			String email = entrada.nextLine();	entrenadores.setEmailEntrenador(email);
 
 			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
@@ -113,7 +115,7 @@ public class Operaciones {
 
 			int rowsAffected = pst.executeUpdate();
 			if (rowsAffected == 1){
-				System.out.println("El entrenador se ha unido al Gimnasio " );
+				System.out.println("El entrenador se ha unido al Gimnasio Siempre Fuerte " );
 			}else{
 				System.out.println("Algo no ha salido como esperabas... ");
 			}
