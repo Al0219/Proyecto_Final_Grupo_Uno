@@ -233,4 +233,32 @@ public class Operaciones {
 			e.printStackTrace();
 		}
 	}
+
+	public void buscarEntrenador(){
+		try {
+			Conexion conexion = new Conexion();
+			String sql = "SELECT * FROM entrenadores WHERE id_entrenador = ?";
+			PreparedStatement pst = conexion.connection.prepareStatement(sql);
+
+			System.out.print("Escriba el ID del entrenador a buscar: ");
+			System.out.println(" ");
+			String ID = entrada.nextLine();
+
+			pst.setString(1, ID);
+
+			ResultSet rs = pst.executeQuery();
+
+			if(rs.next()){
+				System.out.println("|Nombre Completo: "+rs.getString("nombre_entrenador")+" "+rs.getString("apellido_entrenador")+"|");
+				System.out.println("|Número de telefono: " +rs.getString("numero_telefono")+"|");
+				System.out.println("|Fecha de contratacion: " +rs.getString("fecha_contratacion")+"|");
+			}else{
+				System.out.println("Ese entrenador no aparece en la base de datos");
+			}
+			conexion.connection.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
