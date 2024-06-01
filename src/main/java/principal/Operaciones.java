@@ -79,4 +79,50 @@ public class Operaciones {
 			e.printStackTrace();
 		}
 	}
+
+	public void agregarEntrenador(){
+		try {
+			Conexion conexion = new Conexion();
+
+			String sql = "INSERT INTO entrenadores(id_entrenador, nombre_entrenador, apellido_entrenador, numero_telefono, email, fecha_contratacion) VALUES (?, ?, ?, ?, ?, ?)";
+			PreparedStatement pst = conexion.connection.prepareStatement(sql);
+
+			System.out.print("Escriba el nombre del nuevo entrenador: ");
+			String nombre = entrada.nextLine(); entrenadores.setNombreEntrenador(nombre);
+
+			System.out.print("Escriba el apellido del nuevo entrenador: ");
+			String apellido = entrada.nextLine(); entrenadores.setApellidoEntrenador(apellido);
+
+			System.out.print("Escriba el numero de teléfono: ");
+			String numero = entrada.nextLine(); entrenadores.setNumeroEntrenador(numero);
+
+			System.out.println("Escriba el correo electrónico: ");
+			String email = entrada.nextLine();	entrenadores.setEmailEntrenador(email);
+
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
+			LocalDate fechaActual = LocalDate.now();
+			java.sql.Date sqlDate = java.sql.Date.valueOf(fechaActual);
+			entrenadores.setFechaContratacion(sqlDate);
+
+			pst.setString(1, "0");
+			pst.setString(2, entrenadores.getNombreEntrenador());
+			pst.setString(3, entrenadores.getApellidoEntrenador());
+			pst.setString(4, entrenadores.getNumeroEntrenador());
+			pst.setString(5, entrenadores.getEmailEntrenador());
+			pst.setDate(6, sqlDate);
+
+			int rowsAffected = pst.executeUpdate();
+			if (rowsAffected == 1){
+				System.out.println("El entrenador se ha unido al Gimnasio " );
+			}else{
+				System.out.println("Algo no ha salido como esperabas... ");
+			}
+			conexion.connection.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
 }

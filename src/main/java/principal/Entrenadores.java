@@ -48,4 +48,7 @@ public class Entrenadores {
 	public void setFechaContratacion(Date fechaContratacion) {
 		this.fechaContratacion = fechaContratacion;
 	}
+
 }
+
+
